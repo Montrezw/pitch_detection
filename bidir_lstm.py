@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout
+from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout, Bidirectional
 from tensorflow.keras import regularizers
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -12,18 +12,18 @@ from sarcasm import Sarcasm
 from datasets import (GeneratorBasedBuilder, Version, DownloadManager, SplitGenerator, Split,
     Features, Value, BuilderConfig, DatasetInfo)
 
-def lstm():
+def bidir_lstm():
     embedding_dim = 128 # Dimension of the word embeddings
 
-    model = Sequential([
-        Embedding(input_dim=max_words, output_dim=embedding_dim, input_length=max_len),
-        LSTM(units=128, return_sequences=False),
+    bidir_model = Sequential([
+        Embedding(input_dim=max_words, output_dim=embedding_dim),
+        Bidirectional(LSTM(units=128, return_sequences=False, kernel_regularizer=regularizers.l2(0.001))),
         Dropout(0.5),
         Dense(units=1, activation='sigmoid')
     ])
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    bidir_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-    return model
+    return bidir_model
 
 def plot(history):
     # Plot training & validation accuracy values
@@ -98,11 +98,11 @@ print(f"Shape of y_test: {y_test.shape}")
 epochs = 10
 batch_size = 32
 
-# LSTM MODEL
-model = lstm()
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-history = model.fit(X_train_pad, y_train, epochs=epochs, batch_size=batch_size, validation_data=(X_val_pad, y_val))
-loss, accuracy = model.evaluate(X_test_pad, y_test, batch_size=batch_size)
-print(f"LSTM Test Loss: {loss:.4f}")
-print(f"LSTM Test Accuracy: {accuracy:.4f}")
-plot(history)
+# BI-DIRECTIONAL LSTM MODEL WITH L2 REGULARIZATION
+bidir_model = bidir_lstm()
+bidir_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+bidir_history = bidir_model.fit(X_train_pad, y_train, epochs=epochs, batch_size=batch_size, validation_data=(X_val_pad, y_val))
+bidir_loss, bidir_accuracy = bidir_model.evaluate(X_test_pad, y_test, batch_size=batch_size)
+print(f"BI-DIRECTIONAL LSTM with L2 Regularization Test Loss: {bidir_loss:.4f}")
+print(f"BI-DIRECTIONAL LSTM with L2 Regularization Test Accuracy: {bidir_accuracy:.4f}")
+plot(bidir_history)
