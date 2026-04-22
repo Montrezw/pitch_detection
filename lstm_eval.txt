@@ -3,3 +3,9 @@ The test accuracy is 0.2289. The test loss is 1.4859.
 This indicates that the model is performing poorly on unseen data.
 This low accuracy suggests that there might be issues such as overfitting to the training data,
  an imbalanced dataset, or the model architecture not being complex enough to capture the nuances of sarcasm.
+
+The Bi-direction LSTM model with L2 regularization has been evaluated on the test set. 
+Test Loss: 0.6756
+Test Accuracy: 0.8352
+The test accuracy has significantly improved from 0.2289 to 0.8352, and the loss has decreased as well.
+This indicates that adding L2 regularization was an effective step to reduce overfitting.
