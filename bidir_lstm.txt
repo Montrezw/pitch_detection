@@ -1,0 +1,5 @@
+The Bi-direction LSTM model with L2 regularization has been evaluated on the test set. 
+Test Loss: 0.6756
+Test Accuracy: 0.8352
+The test accuracy has significantly improved from 0.2289 to 0.8352, and the loss has decreased as well.
+This indicates that adding L2 regularization was an effective step to reduce overfitting.
