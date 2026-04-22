@@ -1,0 +1,5 @@
+The LSTM model has been evaluated on the test set. 
+The test accuracy is 0.2289. The test loss is 1.4859.
+This indicates that the model is performing poorly on unseen data.
+This low accuracy suggests that there might be issues such as overfitting to the training data,
+ an imbalanced dataset, or the model architecture not being complex enough to capture the nuances of sarcasm.
