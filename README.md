@@ -20,11 +20,15 @@
 -   Training and validation accuracy/loss curves were plotted to diagnose overfitting.
 
 ## Initial Challenges and Solutions:
--   **`NameError` for `dataset_train`**: Resolved by ensuring the `Sarcasm` class definition and dataset re-initialization logic were self-contained within the data preparation cell.
 -   **Severe Overfitting**: Initially, the model showed high training accuracy but very low test accuracy (around 17%), indicating severe overfitting.
     -   **Solution 1**: Added `kernel_regularizer=regularizers.l2(0.001)` to the `Bidirectional(LSTM)` layer. This significantly reduced overfitting and led to a substantial improvement in test accuracy.
 
 ## Current Performance:
 View corresponding txt files for performance review and eval
+
+## Model files
+- baseline.py
+- lstm.py
+- bidir_lstm.py
 
 \
